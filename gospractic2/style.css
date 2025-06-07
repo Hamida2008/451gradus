@@ -1,0 +1,209 @@
+/* Жалпы стильдер */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fefefe;
+  color: #333;
+}
+
+/* Хэдер */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #000;
+  color: white;
+}
+
+header h2 {
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #ffcc00;
+}
+
+.ulbtn {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.ulbtn ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.ulbtn ul li {
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.ulbtn ul li:hover {
+  color: #ffcc00;
+}
+
+.header_btn {
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.header_btn:hover {
+  background-color: #e6b800;
+}
+
+/* Негізгі блок */
+.main_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 60px;
+  background: linear-gradient(to right, #ffe259, #ffa751);
+}
+
+.block1 h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.block1 h3 {
+  margin-top: 10px;
+  color: #333;
+}
+
+.block1 button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.block2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+.block2 h3 {
+  font-size: 28px;
+  color: #000;
+}
+
+.block2 h4 {
+  font-size: 18px;
+  color: #666;
+}
+
+.block2 img {
+  width: 100px;
+  height: 100px;
+}
+
+/* 2-бет */
+.page2 {
+  padding: 80px 60px;
+  background-color: #f0f0f0;
+}
+
+.page2text {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 15px;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.cardtext h2 {
+  font-size: 20px;
+  margin: 10px 0 5px;
+  color: #1a5980;
+}
+
+.cardtext p {
+  font-size: 14px;
+  color: #555;
+}
+
+.footer {
+  margin-top: 100px;
+  padding: 40px;
+  background: linear-gradient(to right, #ffe259, #ffa751);
+  color: black;
+  border-radius: 20px;
+  font-family: sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer a {
+  color: black;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.social-icons img {
+  width: 24px;
+  margin-right: 10px;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .main_block,
+  .purplecard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .block2 {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

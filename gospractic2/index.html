@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>451° - Кітап оты</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&family=Unbounded:wght@700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      :root {
+        --bg-color: #0f0e17;
+        --text-color: #fffffe;
+        --primary: #ff8906; /* Отқа ұқсас түс */
+        --secondary: #f25f4c;
+        --tertiary: #e53170;
+        --highlight: #eebbc3;
+        --fire-orange: #ff5f1f;
+        --ember-red: #e83f17;
+        --book-brown: #8b5a2b;
+        --parchment: #f5e7d4;
+        --ink-black: #1a120b;
+        --smoke-gray: #4a4a4a;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Rubik", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Анимациялы фон элементтері */
+      .bg-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .bg-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.1;
+        filter: blur(40px);
+        animation: float 15s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-50px) rotate(5deg);
+        }
+      }
+
+      /* От анимациясы */
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        25% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+        75% {
+          opacity: 0.9;
+        }
+      }
+
+      /* Хедер */
+      header {
+        background: linear-gradient(
+          to right,
+          var(--ink-black),
+          var(--book-brown)
+        );
+        padding: 1.5rem 3rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          to right,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .logo {
+        font-family: "Unbounded", cursive;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        letter-spacing: 2px;
+        position: relative;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+        }
+        to {
+          text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary),
+            0 0 30px var(--tertiary);
+        }
+      }
+
+      .logo::after {
+        content: "°";
+        position: absolute;
+        top: -10px;
+        font-size: 1.5rem;
+        color: var(--fire-orange);
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-menu a {
+        text-decoration: none;
+        color: white;
+        position: relative;
+        font-weight: 600;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      .nav-menu li {
+        position: relative;
+        font-weight: 600;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .nav-menu li:hover {
+        color: var(--highlight);
+      }
+
+      .nav-menu li::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--fire-orange);
+        transition: width 0.3s ease;
+      }
+
+      .nav-menu li:hover::after {
+        width: 100%;
+      }
+
+      /* Негізгі контент */
+      .hero {
+        background: linear-gradient(
+            rgba(15, 14, 23, 0.9),
+            rgba(15, 14, 23, 0.9)
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,0 Q50,50 0,0 Z" fill="%23E83F17" opacity="0.1"/></svg>');
+        background-size: cover;
+        padding: 5rem 3rem;
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.8s forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .hero-title {
+        font-family: "Unbounded", cursive;
+        font-size: 3.5rem;
+        color: var(--text-color);
+        text-shadow: 0 0 10px var(--primary);
+        line-height: 1.2;
+        position: relative;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      .hero-title::before {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+      }
+
+      /* Статистика блокы */
+      .stats-container {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--book-brown);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 2rem;
+        position: relative;
+        backdrop-filter: blur(10px);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
+        animation-delay: 0.3s;
+      }
+
+      .stats-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          to right,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .stat-number {
+        font-family: "Merriweather", serif;
+        font-size: 2.5rem;
+        color: var(--fire-orange);
+      }
+
+      /* Кітап беті эффектісі */
+      .book-page {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="40" height="40" fill="%23F5E7D4"/><path d="M0 20 Q10 15 20 20 T40 20" stroke="%238B5A2B" stroke-width="0.5" fill="none"/></pattern><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
+        padding: 3rem;
+        border: 1px solid var(--book-brown);
+        box-shadow: inset 0 0 20px rgba(139, 90, 43, 0.1);
+        position: relative;
+        border-radius: 8px;
+        margin: 3rem auto;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
+        animation-delay: 0.5s;
+      }
+
+      .book-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50px;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--book-brown),
+          transparent
+        );
+      }
+
+      .team-card {
+        background-color: white;
+        border: 1px solid var(--book-brown);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        width: 280px;
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(232, 63, 23, 0.2);
+      }
+
+      .card-name {
+        font-family: "Merriweather", serif;
+        color: var(--ink-black);
+        border-bottom: 2px solid var(--book-brown);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      /* Футер */
+      footer {
+        background: linear-gradient(
+          to right,
+          var(--ink-black),
+          var(--book-brown)
+        );
+        color: var(--text-color);
+        padding: 3rem;
+        position: relative;
+        margin-top: 4rem;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          to right,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .footer-links a {
+        color: var(--text-color);
+        position: relative;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--highlight);
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--fire-orange);
+        transition: width 0.3s ease;
+      }
+
+      .footer-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Кнопкалар */
+      .link-button {
+        display: inline-block;
+        background: var(--fire-orange);
+        color: var(--bg-color);
+        padding: 0.7rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 2px solid var(--fire-orange);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .link-button:hover {
+        background: transparent;
+        color: var(--fire-orange);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 95, 31, 0.4);
+      }
+      /* Адаптивтік дизайн */
+      @media (max-width: 768px) {
+        /* Контейнер */
+        .container {
+          padding: 1rem;
+        }
+
+        /* Хедер */
+        header {
+          padding: 1rem;
+        }
+
+        .logo {
+          font-size: 1.8rem;
+        }
+
+        .logo::after {
+          font-size: 1rem;
+          top: -8px;
+        }
+
+        .nav-menu {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .nav-menu li {
+          font-size: 0.9rem;
+        }
+
+        .link-button {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        /* Hero секциясы */
+        .hero {
+          padding: 2rem 1rem;
+          text-align: center;
+        }
+
+        .hero .container {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .hero-title {
+          font-size: 2rem;
+          line-height: 1.3;
+        }
+
+        .hero p {
+          font-size: 1.2rem;
+          margin: 1rem 0;
+        }
+
+        .hero .link-button {
+          padding: 0.8rem 1.5rem;
+        }
+
+        .stats-container {
+          width: 100%;
+          max-width: 100%;
+          padding: 1.5rem;
+          margin-top: 1.5rem;
+        }
+
+        .stat-number {
+          font-size: 2rem;
+        }
+
+        /* Кітап беті секциясы */
+        .book-page {
+          padding: 1.5rem;
+          margin: 2rem 0;
+        }
+
+        .book-page h2 {
+          font-size: 1.8rem;
+        }
+
+        .book-page p {
+          font-size: 1rem;
+        }
+
+        .team-card {
+          width: 100%;
+          max-width: 280px;
+          margin: 0 auto;
+        }
+
+        .card-name {
+          font-size: 1.3rem;
+        }
+
+        /* Футер */
+        footer {
+          padding: 2rem 1rem;
+        }
+
+        footer .container > div {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+        }
+
+        footer h3 {
+          font-size: 1.5rem;
+        }
+
+        .footer-links {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .footer-links li {
+          margin-bottom: 0.5rem;
+        }
+
+        footer .container > div > div {
+          min-width: 100%;
+        }
+
+        footer a[href*="t.me"] {
+          margin: 0 auto;
+        }
+
+        /* Анимацияларды оңтайландыру */
+        .bg-element {
+          filter: blur(20px);
+          transform: scale(0.8);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Анимациялы фон элементтері -->
+    <div class="bg-elements">
+      <div
+        class="bg-element"
+        style="
+          width: 300px;
+          height: 300px;
+          background: var(--primary);
+          top: 10%;
+          left: 5%;
+          animation-delay: 0s;
+        "
+      ></div>
+      <div
+        class="bg-element"
+        style="
+          width: 400px;
+          height: 400px;
+          background: var(--secondary);
+          bottom: 10%;
+          right: 5%;
+          animation-delay: 2s;
+        "
+      ></div>
+      <div
+        class="bg-element"
+        style="
+          width: 250px;
+          height: 250px;
+          background: var(--tertiary);
+          top: 40%;
+          right: 15%;
+          animation-delay: 4s;
+        "
+      ></div>
+    </div>
+
+    <!-- Хедер -->
+    <header>
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div class="logo">451 gradus</div>
+        <div style="display: flex; align-items: center; gap: 2rem">
+          <ul class="nav-menu">
+            <li><a href="rules.html">Ереже</a></li>
+            <li>
+              <a
+                href="https://script.google.com/macros/s/AKfycbxKjF11DRlghCOxuUeWptyNkgqBk_Vw-0essMGHrMlTfGMcptnoGaLjU1HERdXoOQbp/exec"
+                >Нәтижелер</a
+              >
+            </li>
+            <li><a href="book.html">Кітапхана</a></li>
+          </ul>
+          <button class="link-button"><a href="singin.html">Sign in</a></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Негізгі контент -->
+    <main>
+      <section class="hero">
+        <div
+          class="container"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div style="flex: 1; max-width: 600px">
+            <h1 class="hero-title">Кітап оҚы да,<br />шӘкіртаҚы жеҢіп ал.</h1>
+            <p
+              style="
+                font-size: 1.5rem;
+                color: var(--highlight);
+                margin: 1.5rem 0;
+              "
+            >
+              "451 градус" — бұл тек жарыс емес, кітапқа деген сүйіспеншілікті
+              дәріптейді
+            </p>
+            <button class="link-button" style="padding: 1rem 2rem">
+              <a href="timer.html">Басталуына қалған уақыт</a>
+            </button>
+            <p
+              style="
+                color: var(--fire-orange);
+                font-size: 1.1rem;
+                margin-top: 1rem;
+              "
+            >
+              Дайынсың ба? Уақыт өтіп жатыр!
+            </p>
+          </div>
+          <div
+            class="stats-container"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 1.5rem;
+              width: 300px;
+            "
+          >
+            <div style="text-align: center">
+              <div class="stat-number">123</div>
+              <p style="color: var(--highlight)">Қатысушы</p>
+            </div>
+            <div
+              style="
+                width: 80%;
+                height: 1px;
+                background-color: var(--book-brown);
+                opacity: 0.3;
+              "
+            ></div>
+            <div style="font-size: 3rem">📖</div>
+            <div
+              style="
+                width: 80%;
+                height: 1px;
+                background-color: var(--book-brown);
+                opacity: 0.3;
+              "
+            ></div>
+            <div style="text-align: center">
+              <div class="stat-number">41</div>
+              <p style="color: var(--highlight)">Топ</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ұйымдастырушылар -->
+      <section class="book-page container">
+        <h2
+          style="
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            color: var(--ink-black);
+            text-align: center;
+            margin-bottom: 2rem;
+          "
+        >
+          "451 градус" сайысының ресми ұйымдастырушылары
+        </h2>
+        <p
+          style="
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--smoke-gray);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+          "
+        >
+          Бұл жобаның мақсаты – жастарды кітап оқуға ынталандыру және білімді
+          бағалау арқылы шәкіртақы ұтып алу мүмкіндігін ұсыну.
+        </p>
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+          "
+        >
+          <div class="team-card">
+            <img
+              src="алишерағай.jpg"
+              alt="Әлишер"
+              style="
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 4px;
+                margin-bottom: 1rem;
+              "
+            />
+            <h3 class="card-name">Жүнісов Әлишер</h3>
+            <p style="color: var(--smoke-gray); font-size: 0.9rem"></p>
+          </div>
+
+          <div class="team-card">
+            <img
+              src="азизаапай.jpg"
+              alt=""
+              style="
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 4px;
+                margin-bottom: 1rem;
+              "
+            />
+            <h3 class="card-name">Азиза Саясатова</h3>
+            <p style="color: var(--smoke-gray); font-size: 0.9rem"></p>
+          </div>
+          <div class="team-card">
+            <img
+              src="бекзатаби.jpg"
+              alt="Әлишер"
+              style="
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 4px;
+                margin-bottom: 1rem;
+              "
+            />
+            <h3 class="card-name">Бекзат Өмірзақ</h3>
+            <p style="color: var(--smoke-gray); font-size: 0.9rem"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+      <div class="container">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+          "
+        >
+          <div style="flex: 1; min-width: 250px">
+            <h3
+              style="
+                font-family: 'Unbounded', cursive;
+                font-size: 1.8rem;
+                color: var(--text-color);
+                margin-bottom: 1rem;
+              "
+            >
+              451° gradus
+            </h3>
+            <p style="color: var(--text-color); opacity: 0.8">
+              Кітап оқып, шәкіртақы жеңіп ал!
+            </p>
+          </div>
+          <div style="flex: 1; min-width: 250px">
+            <ul class="footer-links" style="list-style: none">
+              <li style="margin-bottom: 0.8rem">
+                <a href="rules.html">Ереже</a>
+              </li>
+              <li style="margin-bottom: 0.8rem">
+                <a
+                  href="https://script.google.com/macros/s/AKfycbxKjF11DRlghCOxuUeWptyNkgqBk_Vw-0essMGHrMlTfGMcptnoGaLjU1HERdXoOQbp/exec"
+                  >Нәтижелер</a
+                >
+              </li>
+              <li style="margin-bottom: 0.8rem">
+                <a href="#register">Тіркелу</a>
+              </li>
+            </ul>
+          </div>
+          <div style="flex: 1; min-width: 250px">
+            <p style="color: var(--text-color); margin-bottom: 1rem">
+              Байланыс: info@451gradus.kz
+            </p>
+            <a
+              href="https://t.me/JIHC_451gradus"
+              style="
+                width: 40px;
+                height: 40px;
+                background-color: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+              "
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+                alt="Telegram"
+                style="width: 20px; filter: brightness(0) invert(1)"
+              />
+            </a>
+          </div>
+        </div>
+        <div
+          style="
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            opacity: 0.7;
+          "
+        >
+          © 2025 451 градус. Барлық құқықтар қорғалған.<br />
+          JIHC Government ұйымы
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        const bgElements = document.querySelectorAll(".bg-element");
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+
+        bgElements.forEach((el, index) => {
+          const speed = (index + 1) * 0.02;
+          const xPos = x * 20 * speed;
+          const yPos = y * 20 * speed;
+          el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+        });
+      });
+
+      const sections = document.querySelectorAll(
+        ".hero, .stats-container, .book-page"
+      );
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>

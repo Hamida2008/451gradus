@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>451 градус - Ережелер</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&family=Unbounded:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      :root {
+        --bg-color: #0f0e17;
+        --text-color: #fffffe;
+        --primary: #ff8906;
+        --secondary: #f25f4c;
+        --tertiary: #e53170;
+        --highlight: #eebbc3;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Rubik", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        position: relative;
+      }
+
+      /* Анимациялы фон элементтері */
+      .bg-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .bg-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.1;
+        filter: blur(40px);
+        animation: float 15s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-50px) rotate(5deg);
+        }
+      }
+
+      /* Басты заголовок */
+      .main-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .main-title {
+        font-family: "Unbounded", cursive;
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        display: inline-block;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+        }
+        to {
+          text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary),
+            0 0 30px var(--tertiary);
+        }
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: var(--highlight);
+        margin-top: 0.5rem;
+        letter-spacing: 1px;
+      }
+
+      /* Ережелер бөлімі */
+      .rule-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .rule-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .section-title {
+        font-family: "Unbounded", cursive;
+        font-size: 1.8rem;
+        color: var(--secondary);
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--secondary), transparent);
+        border-radius: 3px;
+      }
+      .logout-button {
+        position: absolute;
+        top: 20px;
+        left: 30px; /* Сол жақта тұрады */
+        padding: 10px 20px;
+        background-color: #ff4d4d;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-button:hover {
+        background-color: #cc0000;
+      }
+
+      .rule-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .rule-item {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .rule-item::before {
+        content: "»";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+
+      .rule-item:hover {
+        transform: translateX(10px);
+        color: var(--highlight);
+      }
+
+      /* Ерекше бөлім */
+      .highlight-section {
+        background: linear-gradient(135deg, var(--tertiary), var(--secondary));
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 3rem 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(226, 49, 112, 0.3);
+        animation: pulse 4s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 10px 30px rgba(226, 49, 112, 0.3);
+        }
+        50% {
+          box-shadow: 0 10px 50px rgba(226, 49, 112, 0.5);
+        }
+      }
+
+      .highlight-section::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate 20s linear infinite;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .highlight-title {
+        color: white;
+        position: relative;
+      }
+
+      /* Төменгі жақ */
+      .footer {
+        text-align: center;
+        margin-top: 4rem;
+        font-size: 0.9rem;
+        color: var(--highlight);
+        opacity: 0.7;
+      }
+
+      /* Кнопкалар */
+      .link-button {
+        display: inline-block;
+        background: var(--primary);
+        color: var(--bg-color);
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary);
+      }
+
+      .link-button:hover {
+        background: transparent;
+        color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 137, 6, 0.4);
+      }
+
+      /* Адаптивтік дизайн */
+      @media (max-width: 768px) {
+        .main-title {
+          font-size: 2.5rem;
+        }
+
+        .container {
+          padding: 1.5rem;
+        }
+
+        .rule-section {
+          padding: 1.5rem;
+        }
+      }
+
+      /* Кезекпен анимация */
+      .rule-section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .rule-section:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .rule-section:nth-child(3) {
+        animation-delay: 0.5s;
+      }
+      .highlight-section {
+        animation-delay: 0.7s;
+      }
+      /* Медиа-сұраныстарды жаңарту */
+      @media (max-width: 768px) {
+        .main-title {
+          font-size: 2.5rem;
+          margin-top: 2rem; /* Жоғарғы жақтан көбірек орын қосу */
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .rule-section {
+          padding: 1.2rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        /* Шығу батырмасын мобильдікке лайықты ету */
+        .logout-button {
+          position: fixed; /* Скроллдамайтын орнықты позиция */
+          top: 10px;
+          left: 10px;
+          padding: 8px 15px;
+          font-size: 0.9rem;
+          z-index: 1000; /* Басқа элементтердің үстінде болуы үшін */
+        }
+
+        /* Фон элементтерін кішірейту */
+        .bg-element {
+          filter: blur(30px);
+        }
+
+        .bg-element:nth-child(1) {
+          width: 200px;
+          height: 200px;
+        }
+
+        .bg-element:nth-child(2) {
+          width: 250px;
+          height: 250px;
+        }
+
+        .bg-element:nth-child(3) {
+          width: 180px;
+          height: 180px;
+        }
+
+        /* Текст өлшемдерін кішірейту */
+        .subtitle {
+          font-size: 1rem;
+        }
+
+        .rule-item {
+          font-size: 0.95rem;
+          padding-left: 1.5rem;
+          margin-bottom: 0.8rem;
+        }
+
+        .highlight-section {
+          padding: 1.5rem;
+          margin: 2rem 0;
+        }
+
+        .link-button {
+          padding: 0.5rem 1.2rem;
+          font-size: 0.9rem;
+        }
+
+        .footer {
+          font-size: 0.8rem;
+          margin-top: 2rem;
+        }
+      }
+
+      /* Кішірек экрандар үшін қосымша реттеулер */
+      @media (max-width: 480px) {
+        .main-title {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.3rem;
+        }
+
+        .rule-item {
+          font-size: 0.9rem;
+        }
+
+        .logout-button {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Анимациялы фон элементтері -->
+    <div class="bg-elements">
+      <div
+        class="bg-element"
+        style="
+          width: 300px;
+          height: 300px;
+          background: var(--primary);
+          top: 10%;
+          left: 5%;
+          animation-delay: 0s;
+        "
+      ></div>
+      <div
+        class="bg-element"
+        style="
+          width: 400px;
+          height: 400px;
+          background: var(--secondary);
+          bottom: 10%;
+          right: 5%;
+          animation-delay: 2s;
+        "
+      ></div>
+      <div
+        class="bg-element"
+        style="
+          width: 250px;
+          height: 250px;
+          background: var(--tertiary);
+          top: 40%;
+          right: 15%;
+          animation-delay: 4s;
+        "
+      ></div>
+    </div>
+    <a href="index.html" class="logout-button">Шығу</a>
+    <div class="container animate__animated animate__fadeIn">
+      <header class="main-header">
+        <h1 class="main-title">451 градус</h1>
+        <p class="subtitle">Кітап оқу қозғалысының ресми ережелері</p>
+      </header>
+
+      <section class="rule-section">
+        <h2 class="section-title">Тіркелу</h2>
+        <ul class="rule-list">
+          <li class="rule-item">
+            Командада 3 студент болады, команда мүшелері әртүрлі группадан бола
+            алады
+          </li>
+          <li class="rule-item">
+            Бір командада тек ұлдар немесе тек қыздар бола алады
+          </li>
+          <li class="rule-item">
+            Капитан өз командасын
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSedbARVUIpS5VpiBg6PJD1gzsAgF41-dXfhdNFwGX-lLxiQRA/viewform?usp=sf_link"
+              class="link-button"
+              >Google Forms</a
+            >
+            арқылы тіркейді
+          </li>
+          <li class="rule-item">
+            Барлық қатысушылар ресми Telegram каналға қосылуға міндетті
+          </li>
+          <li class="rule-item">
+            Команда бір маусымға 4000 теңге қатысу жарнасын төлейді
+          </li>
+        </ul>
+      </section>
+
+      <section class="rule-section">
+        <h2 class="section-title">Кітап тадҢау</h2>
+        <ul class="rule-list">
+          <li class="rule-item">
+            Қатысушылар келесі айдың кітабын ресми Telegram каналда дауыс беру
+            арқылы таңдайды
+          </li>
+          <li class="rule-item">
+            Айдың 20 күні қатысушылар келесі айдың жанрын таңдайды
+          </li>
+          <li class="rule-item">Айдың 25 күні келесі айдың кітабын таңдайды</li>
+          <li class="rule-item">Әр команда кітапты табуға өзі жауапты</li>
+        </ul>
+      </section>
+
+      <section class="rule-section">
+        <h2 class="section-title">Ойын</h2>
+        <ul class="rule-list">
+          <li class="rule-item">Ойын акт залында өтеді</li>
+          <li class="rule-item">
+            Сұрақтар тест және қысқа жауап форматында болады
+          </li>
+          <li class="rule-item">Жалпы сұрақ саны — 20</li>
+          <li class="rule-item">Әр дұрыс жауап — 1 ұпай</li>
+          <li class="rule-item">Қате жауап ұпай санына әсер етпейді</li>
+          <li class="rule-item">
+            Бірнеше командада бірдей ұпай болса нәтиже соңғы ойынға қарап
+            белгіленеді
+          </li>
+          <li class="rule-item">
+            Ойын нәтижесі келесі күні ресми Telegram каналында жарияланады
+          </li>
+        </ul>
+      </section>
+
+      <section class="highlight-section rule-section">
+        <h2 class="section-title highlight-title">Бас жҮлде</h2>
+        <ul class="rule-list">
+          <li class="rule-item">
+            Жеңімпаз атанған команданың әр мүшесіне келесі семестрде төрт ай
+            бойы 20 000 теңге көлемінде стипендия төленеді
+          </li>
+          <li class="rule-item">
+            Сезон соңында 70 ұпай жинаған командаға қатысу жарнасы қайтарылады
+          </li>
+        </ul>
+      </section>
+
+      <footer class="footer">
+        © 2025 451 градус. Барлық құқықтар қорғалған.<br />
+        JIHC Government ұйымы
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        const bgElements = document.querySelectorAll(".bg-element");
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+
+        bgElements.forEach((el, index) => {
+          const speed = (index + 1) * 0.02;
+          const xPos = x * 20 * speed;
+          const yPos = y * 20 * speed;
+          el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+        });
+      });
+
+      // Кезекпен көріну анимациясы
+      const sections = document.querySelectorAll(
+        ".rule-section, .highlight-section"
+      );
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>

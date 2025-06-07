@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>451° - Ойын басталуы</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fire-orange: #ff5f1f;
+        --ember-red: #e83f17;
+        --hot-yellow: #ffaa00;
+        --book-brown: #5e2c04;
+        --parchment: #f5e7d4;
+        --ink-black: #1a120b;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--ink-black);
+        color: var(--parchment);
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* От анимациясы */
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.6;
+        }
+        60% {
+          opacity: 0.9;
+        }
+        80% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes flame {
+        0%,
+        100% {
+          transform: scaleY(1) scaleX(1);
+        }
+        50% {
+          transform: scaleY(1.1) scaleX(0.9);
+        }
+      }
+
+      /* Кітап беті эффектісі */
+      .book-page {
+        background: linear-gradient(
+            rgba(26, 18, 11, 0.9),
+            rgba(26, 18, 11, 0.9)
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="40" height="40" fill="%231A120B"/><path d="M0 20 Q10 15 20 20 T40 20" stroke="%235E2C04" stroke-width="0.3" fill="none"/></pattern><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
+        border: 1px solid var(--book-brown);
+        box-shadow: 0 0 30px rgba(232, 63, 23, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .book-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50px;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--book-brown),
+          transparent
+        );
+      }
+
+      /* От шекарасы */
+      .fire-border {
+        position: relative;
+      }
+
+      .fire-border::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 2s infinite, flame 3s ease-in-out infinite;
+        box-shadow: 0 0 15px var(--ember-red);
+      }
+
+      /* Таймер блогы */
+      .timer-container {
+        background: linear-gradient(
+            135deg,
+            rgba(30, 20, 10, 0.7),
+            rgba(50, 30, 15, 0.7)
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,0 Q50,50 0,0 Z" fill="%23E83F17" opacity="0.1"/></svg>');
+        background-size: cover;
+        border: 1px solid var(--book-brown);
+        border-radius: 10px;
+        box-shadow: 0 0 40px rgba(232, 63, 23, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timer-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+        box-shadow: 0 0 20px var(--ember-red);
+      }
+
+      /* Таймер цифрлары */
+      .timer-digit {
+        font-family: "Playfair Display", serif;
+        font-size: 5rem;
+        font-weight: 700;
+        color: var(--parchment);
+        text-shadow: 0 0 10px var(--hot-yellow);
+        position: relative;
+      }
+
+      .timer-digit::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--hot-yellow),
+          transparent
+        );
+        animation: flicker 2s infinite;
+      }
+
+      /* Кішірек цифрлар */
+      .timer-label {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--fire-orange);
+        margin-top: 0.5rem;
+      }
+
+      /* Негізгі контент */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .main-title {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--parchment);
+        text-shadow: 0 0 15px var(--fire-orange);
+        margin-bottom: 2rem;
+        position: relative;
+        text-align: center;
+      }
+
+      .main-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--fire-orange),
+          transparent
+        );
+        animation: flicker 2s infinite;
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        text-align: center;
+        color: var(--parchment);
+        margin-bottom: 3rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
+
+      /* Таймер сеткасы */
+      .timer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .timer-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      /* Кнопкалар */
+      .btn {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          45deg,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+        color: var(--parchment);
+        box-shadow: 0 0 20px rgba(232, 63, 23, 0.5);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 30px rgba(232, 63, 23, 0.8);
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      /* Футер */
+      footer {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .footer-text {
+        color: var(--parchment);
+        opacity: 0.8;
+      }
+      .logout-button {
+        position: absolute;
+        top: 20px;
+        left: 30px; /* Сол жақта тұрады */
+        padding: 10px 20px;
+        background-color: #ff4d4d;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-button:hover {
+        background-color: #cc0000;
+      }
+
+      /* От анимациясы (фондағы) */
+      .fire-particle {
+        position: absolute;
+        background: var(--fire-orange);
+        border-radius: 50%;
+        filter: blur(5px);
+        animation: float-up 10s linear infinite;
+        opacity: 0;
+      }
+
+      @keyframes float-up {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Адаптивтік дизайн */
+      @media (max-width: 768px) {
+        .timer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .main-title {
+          font-size: 2.5rem;
+        }
+
+        .subtitle {
+          font-size: 1.2rem;
+        }
+
+        .timer-digit {
+          font-size: 3rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .timer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Шығу кнопкасы -->
+      <a href="index.html" class="logout-button">Шығу</a>
+
+      <!-- Негізгі контент -->
+      <div
+        class="book-page"
+        style="padding: 3rem; border-radius: 10px; margin-bottom: 3rem"
+      >
+        <h1 class="main-title">451° - Ойын басталуына қалған уақыт</h1>
+        <p class="subtitle">
+          Кітап оты жанып, жарыс басталғанға дейін қалған уақыт. Дайын болыңыз -
+          білімді бағалайтын іс-шараға қатысуға дайын болыңыз!
+        </p>
+
+        <!-- Таймер -->
+        <div
+          class="timer-container fire-border"
+          style="padding: 3rem; border-radius: 10px"
+        >
+          <div class="timer-grid">
+            <div class="timer-item">
+              <div class="timer-digit" id="days">00</div>
+              <div class="timer-label">Күн</div>
+            </div>
+            <div class="timer-item">
+              <div class="timer-digit" id="hours">00</div>
+              <div class="timer-label">Сағат</div>
+            </div>
+            <div class="timer-item">
+              <div class="timer-digit" id="minutes">00</div>
+              <div class="timer-label">Минут</div>
+            </div>
+            <div class="timer-item">
+              <div class="timer-digit" id="seconds">00</div>
+              <div class="timer-label">Секунд</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Кнопкалар -->
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+          "
+        >
+          <button class="btn btn-primary">
+            <a href="rules.html">Ережелерді оқу</a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+      <p class="footer-text">© 2025 451° gradus. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <!-- От частицалары -->
+    <script>
+      // От частицаларын қосу
+      function createFireParticles() {
+        const colors = ["#FF5F1F", "#E83F17", "#FFAA00", "#FFD700"];
+        for (let i = 0; i < 30; i++) {
+          const particle = document.createElement("div");
+          particle.classList.add("fire-particle");
+
+          // Кездейсоқ параметрлер
+          const size = Math.random() * 10 + 5;
+          const posX = Math.random() * window.innerWidth;
+          const delay = Math.random() * 5;
+          const duration = Math.random() * 5 + 5;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${posX}px`;
+          particle.style.bottom = `-${size}px`;
+          particle.style.background = color;
+          particle.style.animationDelay = `${delay}s`;
+          particle.style.animationDuration = `${duration}s`;
+
+          document.body.appendChild(particle);
+        }
+      }
+
+      // Таймер функциясы
+      function updateTimer() {
+        // Ойын басталу күні (мысалы: 2025-12-31 18:00)
+        const countDownDate = new Date("Nov 31, 2025 18:00:00").getTime();
+
+        const timer = setInterval(() => {
+          const now = new Date().getTime();
+          const distance = countDownDate - now;
+
+          // Уақыт есептеу
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Нәтижені көрсету
+          document.getElementById("days").textContent = days
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("hours").textContent = hours
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("minutes").textContent = minutes
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("seconds").textContent = seconds
+            .toString()
+            .padStart(2, "0");
+
+          // Таймер аяқталған кезде
+          if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("minutes").textContent = "00";
+            document.getElementById("seconds").textContent = "00";
+          }
+        }, 1000);
+      }
+
+      // Документ жүктелгенде
+      document.addEventListener("DOMContentLoaded", () => {
+        createFireParticles();
+        updateTimer();
+      });
+    </script>
+  </body>
+</html>

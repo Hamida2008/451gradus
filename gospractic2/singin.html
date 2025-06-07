@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>451° - Тіркелу</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fire-orange: #ff5f1f;
+        --ember-red: #e83f17;
+        --hot-yellow: #ffaa00;
+        --book-brown: #5e2c04;
+        --parchment: #f5e7d4;
+        --ink-black: #1a120b;
+        --smoke-gray: #4a4a4a;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--ink-black);
+        color: var(--parchment);
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.6;
+        }
+        60% {
+          opacity: 0.9;
+        }
+        80% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes flame {
+        0%,
+        100% {
+          transform: scaleY(1) scaleX(1);
+        }
+        50% {
+          transform: scaleY(1.1) scaleX(0.9);
+        }
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      header {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        padding: 1.5rem 0;
+        position: relative;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 2s infinite, flame 3s ease-in-out infinite;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--parchment);
+        text-shadow: 0 0 10px var(--fire-orange);
+        letter-spacing: 2px;
+      }
+
+      .logo::after {
+        content: "°";
+        position: absolute;
+        font-size: 1.5rem;
+        color: var(--fire-orange);
+      }
+
+      .book-page {
+        background: linear-gradient(
+            rgba(26, 18, 11, 0.9),
+            rgba(26, 18, 11, 0.9)
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="40" height="40" fill="%231A120B"/><path d="M0 20 Q10 15 20 20 T40 20" stroke="%235E2C04" stroke-width="0.3" fill="none"/></pattern><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
+        border: 1px solid var(--book-brown);
+        box-shadow: 0 0 30px rgba(232, 63, 23, 0.3);
+        border-radius: 10px;
+        padding: 3rem;
+        position: relative;
+      }
+
+      .book-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50px;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--book-brown),
+          transparent
+        );
+      }
+
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: var(--parchment);
+        text-shadow: 0 0 10px var(--fire-orange);
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .page-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--fire-orange),
+          transparent
+        );
+        animation: flicker 2s infinite;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--hot-yellow);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        background-color: rgba(94, 44, 4, 0.3);
+        border: 1px solid var(--book-brown);
+        border-radius: 4px;
+        color: var(--parchment);
+        font-family: "Montserrat", sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--fire-orange);
+        box-shadow: 0 0 10px rgba(232, 63, 23, 0.3);
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(
+          45deg,
+          var(--fire-orange),
+          var(--ember-red)
+        );
+        color: var(--parchment);
+        border: none;
+        border-radius: 4px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(232, 63, 23, 0.5);
+      }
+
+      .btn-submit::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .btn-submit:hover::before {
+        left: 100%;
+      }
+
+      .team-members {
+        margin-top: 2rem;
+        border-top: 1px solid var(--book-brown);
+        padding-top: 2rem;
+      }
+
+      .member-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        align-items: center;
+      }
+
+      .remove-member {
+        background: var(--ember-red);
+        color: var(--parchment);
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .add-member {
+        background: var(--fire-orange);
+        color: var(--parchment);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      footer {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .footer-text {
+        color: var(--parchment);
+        opacity: 0.8;
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        display: none;
+      }
+
+      .alert-success {
+        background-color: rgba(0, 128, 0, 0.2);
+        border: 1px solid green;
+        color: lightgreen;
+      }
+
+      .alert-error {
+        background-color: rgba(255, 0, 0, 0.2);
+        border: 1px solid darkred;
+        color: lightcoral;
+      }
+
+      /* Медиа-сұраныстарды жаңарту */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem;
+        }
+
+        .logo {
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .book-page {
+          padding: 1.5rem;
+        }
+
+        .page-title {
+          font-size: 1.8rem;
+        }
+
+        .page-title::after {
+          width: 150px;
+        }
+
+        /* Навигацияны мобильдікке лайықты ету */
+        .header-content > div {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        .header-content > div a {
+          font-size: 0.9rem;
+          padding: 0.3rem 0;
+        }
+
+        /* Форма элементтерін реттеу */
+        .form-control {
+          padding: 0.7rem;
+          font-size: 0.95rem;
+        }
+
+        .btn-submit {
+          padding: 0.9rem;
+          font-size: 1rem;
+        }
+
+        /* Команда мүшелері бөлімін реттеу */
+        .member-item {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+          width: 70%;
+        }
+
+        .member-item > div {
+          width: 70%;
+        }
+
+        .remove-member {
+          align-self: flex-end;
+          margin-top: -35px;
+          margin-bottom: 10px;
+        }
+
+        /* Футерді реттеу */
+        footer {
+          padding: 1.5rem;
+        }
+
+        .footer-text {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Кішірек экрандар үшін қосымша реттеулер */
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 1.5rem;
+        }
+
+        .page-title {
+          font-size: 1.5rem;
+        }
+
+        .page-title::after {
+          width: 120px;
+        }
+
+        .book-page {
+          padding: 1rem;
+        }
+
+        .form-group label {
+          font-size: 0.9rem;
+        }
+
+        .form-control {
+          padding: 0.6rem;
+          font-size: 0.9rem;
+        }
+
+        .btn-submit {
+          padding: 0.8rem;
+          font-size: 0.95rem;
+        }
+
+        .add-member {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.9rem;
+        }
+
+        .header-content > div a {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">451° gradus</div>
+        <div style="display: flex; gap: 1.5rem">
+          <a
+            href="index.html"
+            style="color: var(--parchment); text-decoration: none"
+            >Басты бет</a
+          >
+          <a
+            href="rules.html"
+            style="color: var(--parchment); text-decoration: none"
+            >Ереже</a
+          >
+          <a
+            href="result.html"
+            style="color: var(--parchment); text-decoration: none"
+            >Нәтижелер</a
+          >
+          <a
+            href="book.html"
+            style="color: var(--parchment); text-decoration: none"
+            >Кітапхана</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="book-page">
+        <h1 class="page-title">Команданы Тіркеу</h1>
+
+        <div id="alert-success" class="alert alert-success">
+          Сіздің команда сәтті тіркелді! Жарыс басталғанша күте тұрыңыз.
+        </div>
+
+        <div id="alert-error" class="alert alert-error">
+          Қате орын алды. Өтінеміз, әрекетті кейінірек қайталаңыз.
+        </div>
+
+        <form id="registration-form">
+          <div class="form-group">
+            <label for="team-name">Команда аты</label>
+            <input type="text" id="team-name" class="form-control" required />
+          </div>
+
+          <div class="form-group">
+            <label for="captain-name">Капитан аты-жөні</label>
+            <input
+              type="text"
+              id="captain-name"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="captain-email">Капитан электрондық поштасы</label>
+            <input
+              type="email"
+              id="captain-email"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="captain-phone">Капитан телефон нөмірі</label>
+            <input
+              type="tel"
+              id="captain-phone"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="captain-group">Капитан группасы</label>
+            <input
+              type="text"
+              id="captain-group"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="team-members">
+            <h3 style="color: var(--hot-yellow); margin-bottom: 1rem">
+              Команда мүшелері (3 адам)
+            </h3>
+            <div id="members-container"></div>
+            <button type="button" id="add-member" class="add-member">
+              <span>+</span> Мүше қосу
+            </button>
+          </div>
+
+          <div class="form-group" style="margin-top: 2rem">
+            <label>
+              <input type="checkbox" required />
+              <span
+                >Мен
+                <a href="rules.html" style="color: var(--hot-yellow)"
+                  >ережелермен</a
+                >
+                танысып, қатысуға келісемін</span
+              >
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit">Команданы тіркеу</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer-text">© 2025 451° gradus. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzHx9bC-wlM2X1HEv-v0gZ4NkZ10FREZ2GNSsIpa4qtXY8eaBLNB-qW4hdqYEAyVour/exec";
+
+      let memberCount = 1;
+
+      function addMemberField() {
+        if (memberCount >= 3) {
+          alert("Командада 3 адамнан көп болмауы керек!");
+          return;
+        }
+        const container = document.getElementById("members-container");
+        const memberDiv = document.createElement("div");
+        memberDiv.className = "member-item";
+        memberDiv.innerHTML = `
+          <div style="flex: 1;">
+            <input type="text" class="form-control" placeholder="Мүше аты-жөні" required>
+          </div>
+          <div style="flex: 1;">
+            <input type="text" class="form-control" placeholder="Группа" required>
+          </div>
+          <button type="button" class="remove-member">×</button>
+        `;
+        container.appendChild(memberDiv);
+        memberCount++;
+
+        memberDiv
+          .querySelector(".remove-member")
+          .addEventListener("click", () => {
+            container.removeChild(memberDiv);
+            memberCount--;
+          });
+      }
+
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const submitBtn = document.querySelector(".btn-submit");
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Жіберілуде...";
+
+          try {
+            const members = [];
+            const memberInputs = document.querySelectorAll(
+              "#members-container .member-item"
+            );
+
+            memberInputs.forEach((member) => {
+              const inputs = member.querySelectorAll("input");
+              members.push({
+                name: inputs[0].value,
+                group: inputs[1].value,
+              });
+            });
+
+            const formData = {
+              teamName: document.getElementById("team-name").value,
+              captainName: document.getElementById("captain-name").value,
+              captainEmail: document.getElementById("captain-email").value,
+              captainPhone: document.getElementById("captain-phone").value,
+              captainGroup: document.getElementById("captain-group").value,
+              members: members,
+              // timestamp өрісі алынып тасталды
+            };
+
+            const response = await fetch(scriptURL, {
+              method: "POST",
+              body: JSON.stringify(formData),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            const result = await response.json();
+
+            if (result.result === "success") {
+              document.getElementById("alert-success").style.display = "block";
+              document.getElementById("registration-form").reset();
+              document.getElementById("members-container").innerHTML = "";
+              memberCount = 1;
+            } else {
+              throw new Error(result.message || "Қате орын алды");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("alert-error").textContent = error.message;
+            document.getElementById("alert-error").style.display = "block";
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Команданы тіркеу";
+            setTimeout(() => {
+              document.getElementById("alert-success").style.display = "none";
+              document.getElementById("alert-error").style.display = "none";
+            }, 5000);
+          }
+        });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("add-member")
+          .addEventListener("click", addMemberField);
+        addMemberField(); // Бастапқы мүшені қосу
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>451° - Нәтижелер</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fire-orange: #ff5f1f;
+        --ember-red: #e83f17;
+        --hot-yellow: #ffaa00;
+        --book-brown: #5e2c04;
+        --parchment: #f5e7d4;
+        --ink-black: #1a120b;
+        --smoke-gray: #4a4a4a;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--ink-black);
+        color: var(--parchment);
+        overflow-x: hidden;
+      }
+
+      /* От анимациясы */
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0.6;
+        }
+        60% {
+          opacity: 0.9;
+        }
+        80% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes flame {
+        0%,
+        100% {
+          transform: scaleY(1) scaleX(1);
+        }
+        50% {
+          transform: scaleY(1.1) scaleX(0.9);
+        }
+      }
+
+      /* Контейнер */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Хедер */
+      header {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        padding: 1.5rem 0;
+        position: relative;
+        margin-bottom: 3rem;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 2s infinite, flame 3s ease-in-out infinite;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--parchment);
+        text-shadow: 0 0 10px var(--fire-orange);
+        letter-spacing: 2px;
+      }
+
+      .logo::after {
+        content: "°";
+        position: absolute;
+        font-size: 1.5rem;
+        color: var(--fire-orange);
+      }
+
+      /* Кітап беті эффектісі */
+      .book-page {
+        background: linear-gradient(
+            rgba(26, 18, 11, 0.9),
+            rgba(26, 18, 11, 0.9)
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="40" height="40" fill="%231A120B"/><path d="M0 20 Q10 15 20 20 T40 20" stroke="%235E2C04" stroke-width="0.3" fill="none"/></pattern><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
+        border: 1px solid var(--book-brown);
+        box-shadow: 0 0 30px rgba(232, 63, 23, 0.3);
+        border-radius: 10px;
+        padding: 3rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .book-page::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50px;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--book-brown),
+          transparent
+        );
+      }
+
+      /* Бастықтар */
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        color: var(--parchment);
+        text-shadow: 0 0 10px var(--fire-orange);
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .page-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--fire-orange),
+          transparent
+        );
+        animation: flicker 2s infinite;
+      }
+
+      /* Кесте стилі */
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        position: relative;
+      }
+
+      .results-table::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .results-table th {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        color: var(--parchment);
+        padding: 1.2rem;
+        text-align: left;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid var(--fire-orange);
+      }
+
+      .results-table td {
+        padding: 1rem 1.2rem;
+        border-bottom: 1px solid var(--book-brown);
+        position: relative;
+      }
+
+      .results-table tr:nth-child(even) {
+        background-color: rgba(94, 44, 4, 0.1);
+      }
+
+      .results-table tr:hover {
+        background-color: rgba(232, 63, 23, 0.1);
+      }
+
+      /* Жанған ұпай көрсеткіші */
+      .points-flame {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(
+          to bottom,
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        border-radius: 50% 50% 20% 20%;
+        margin-right: 8px;
+        position: relative;
+        animation: flicker 2s infinite, flame 1.5s ease-in-out infinite;
+        box-shadow: 0 0 10px var(--ember-red);
+        vertical-align: middle;
+      }
+
+      /* Топ позициясы */
+      .team-position {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--hot-yellow);
+        min-width: 40px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      /* Топ аты */
+      .team-name {
+        font-weight: 600;
+        color: var(--parchment);
+      }
+
+      /* Жалпы ұпай */
+      .total-points {
+        font-weight: 700;
+        color: var(--hot-yellow);
+      }
+
+      /* Google Sheets интеграциясы */
+      .sheets-info {
+        background: rgba(94, 44, 4, 0.3);
+        border-left: 4px solid var(--fire-orange);
+        padding: 1rem;
+        margin: 2rem 0;
+        font-size: 0.9rem;
+        color: var(--parchment);
+        border-radius: 0 4px 4px 0;
+      }
+
+      /* Футер */
+      footer {
+        background: linear-gradient(
+          to right,
+          var(--book-brown),
+          var(--ink-black)
+        );
+        padding: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--fire-orange),
+          var(--hot-yellow),
+          var(--ember-red)
+        );
+        animation: flicker 3s infinite;
+      }
+
+      .footer-text {
+        color: var(--parchment);
+        opacity: 0.8;
+      }
+
+      /* Адаптивтік дизайн */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .book-page {
+          padding: 1.5rem;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .results-table th,
+        .results-table td {
+          padding: 0.8rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Хедер -->
+    <header>
+      <div class="header-content">
+        <div class="logo">451° gradus</div>
+        <div style="display: flex; gap: 1.5rem">
+          <a href="#" style="color: var(--parchment); text-decoration: none"
+            >Ереже</a
+          >
+          <a
+            href="#"
+            style="
+              color: var(--fire-orange);
+              text-decoration: none;
+              font-weight: 600;
+            "
+            >Нәтижелер</a
+          >
+          <a href="#" style="color: var(--parchment); text-decoration: none"
+            >Кітапхана</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Негізгі контент -->
+    <div class="container">
+      <div class="book-page">
+        <h1 class="page-title">Ойын Нәтижелері</h1>
+
+        <div class="sheets-info">
+          Деректер Google Sheets арқылы автоматты түрде жаңартылып тұрады. Соңғы
+          жаңарту: <span id="last-update">Жүктелуде...</span>
+        </div>
+
+        <!-- Нәтижелер кестесі -->
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Орын</th>
+              <th>Топ аты</th>
+              <th>Соңғы ойын</th>
+              <th>Жалпы ұпай</th>
+            </tr>
+          </thead>
+          <tbody id="results-data">
+            <!-- Мәліметтер JavaScript арқылы толтырылады -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+      <p class="footer-text">© 2025 451° gradus. Барлық құқықтар қорғалған.</p>
+    </footer>
+
+    <!-- Google Apps Script интеграциясы -->
+    <script>
+      // Деректерді алу және кестені толтыру
+      function loadData() {
+        google.script.run
+          .withSuccessHandler(function (data) {
+            const tableBody = document.getElementById("results-data");
+            tableBody.innerHTML = "";
+
+            // Деректерді кестеге қосу
+            data.rows.forEach((row, index) => {
+              const tr = document.createElement("tr");
+
+              // Орын
+              const tdPosition = document.createElement("td");
+              tdPosition.innerHTML = `<div class="team-position">${
+                index + 1
+              }</div>`;
+
+              // Топ аты
+              const tdTeam = document.createElement("td");
+              tdTeam.innerHTML = `<span class="team-name">${row[1]}</span>`;
+
+              // Соңғы ойын ұпайы
+              const tdLastGame = document.createElement("td");
+              tdLastGame.innerHTML = `<span class="points-flame"></span>${row[2]}`;
+
+              // Жалпы ұпай
+              const tdTotal = document.createElement("td");
+              tdTotal.innerHTML = `<span class="total-points">${row[3]}</span>`;
+
+              tr.appendChild(tdPosition);
+              tr.appendChild(tdTeam);
+              tr.appendChild(tdLastGame);
+              tr.appendChild(tdTotal);
+
+              tableBody.appendChild(tr);
+            });
+
+            // Соңғы жаңарту уақытын көрсету
+            document.getElementById("last-update").textContent =
+              data.lastUpdate;
+          })
+          .withFailureHandler(function (error) {
+            console.error("Деректерді алу кезінде қате:", error);
+            document.getElementById("last-update").textContent =
+              "Деректерді алу кезінде қате пайда болды";
+          })
+          .getSheetData();
+      }
+
+      // Документ жүктелгенде деректерді алу
+      document.addEventListener("DOMContentLoaded", loadData);
+
+      // Әр 5 минут сайын жаңарту
+      setInterval(loadData, 5 * 60 * 1000);
+    </script>
+  </body>
+</html>
